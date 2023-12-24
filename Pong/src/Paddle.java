@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class Paddle {
+public class Paddle extends Rectangle {
 	/**
 	 * constructor method
 	 */
@@ -22,14 +22,14 @@ public class Paddle {
 	}
 	
 	/**
-	 * setYDirection
+	 * setYDirection setter method 
 	 * @param yDirection integer
 	 */
 	public void setYDirection (int yDirection) {
 		
 	}
 	/**
-	 * move
+	 * move the paddles
 	 */
 	public void move () {
 		
@@ -37,7 +37,7 @@ public class Paddle {
 	
 	/**
 	 * draw
-	 * @param
+	 * @param Graphics g
 	 */
 	public void draw(Graphics g) {
 		

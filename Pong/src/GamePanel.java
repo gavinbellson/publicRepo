@@ -3,7 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable {
+	
+	/**
+	 * variables
+	 */
+	static final int GAME_WIDTH = 1000 ;
+	static final int GAME_HEIGHT = (int) (GAME_WIDTH * (.55)) ;
+	
 
 	/**
 	 * constructor method
