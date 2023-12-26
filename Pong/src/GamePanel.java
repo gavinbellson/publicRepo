@@ -98,12 +98,12 @@ public class GamePanel extends JPanel implements Runnable {
 			ball.setRandomYDirection(-ball.yVelocity) ;
 		}
 		
-		if (ball.x <= 0) {
-			ball.setRandomXDirection(-ball.xVelocity) ;
-		}
-		if (ball.x >= GAME_WIDTH - BALL_DIAMETER) {
-			ball.setRandomXDirection(-ball.xVelocity) ;
-		}
+//		if (ball.x <= 0) {
+//			ball.setRandomXDirection(-ball.xVelocity) ;
+//		}
+//		if (ball.x >= GAME_WIDTH - BALL_DIAMETER) {
+//			ball.setRandomXDirection(-ball.xVelocity) ;
+//		}
 		
 		//prevent paddles from leaving screen
 		if (paddle1.y <= 0) {
