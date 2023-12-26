@@ -6,9 +6,17 @@ import java.util.*;
 public class Score extends Rectangle {
 
 	/**
+	 * score variables
+	 */
+	static int GAME_WIDTH ;
+	static int GAME_HEIGHT ;
+	int player1 ;
+	int player2 ;
+	
+	/**
 	 * constructor method
 	 */
-	Score () {
+	Score (int GAME_WIDTH, int GAME_HEIGHT) {
 		
 	}
 	/**

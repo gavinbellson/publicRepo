@@ -6,14 +6,24 @@ import java.util.*;
 public class GameFrame extends JFrame {
 
 	/**
-	 * new instance of GamePanel
+	 * GameFrame variables 
 	 */
-	GamePanel panel = new GamePanel ();
+	GamePanel panel ;
 	
 	/**
 	 * constructor method
 	 */
 	GameFrame() {
+		panel = new GamePanel ();
+		this.add(panel);
+		this.setTitle("KING PONG");
+		this.setResizable(false);
+		this.setBackground(Color.black);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
+		
 		
 	}
 
