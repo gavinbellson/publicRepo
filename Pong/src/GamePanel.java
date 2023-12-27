@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
 	 * new ball method 
 	 */
 	public void newBall () {
-		random = new Random ();
+		//random = new Random ();
 		ball = new Ball (GAME_WIDTH/2 - BALL_DIAMETER/2, GAME_HEIGHT/2 - BALL_DIAMETER/2, 
 				BALL_DIAMETER, BALL_DIAMETER) ;
 	}
@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 		paddle1.draw(g);
 		paddle2.draw(g);
 		ball.draw(g);
+		score.draw(g);
 	}
 	
 	/**
@@ -98,12 +99,26 @@ public class GamePanel extends JPanel implements Runnable {
 			ball.setRandomYDirection(-ball.yVelocity) ;
 		}
 		
-//		if (ball.x <= 0) {
-//			ball.setRandomXDirection(-ball.xVelocity) ;
-//		}
-//		if (ball.x >= GAME_WIDTH - BALL_DIAMETER) {
-//			ball.setRandomXDirection(-ball.xVelocity) ;
-//		}
+		//paddle collisions
+		if (ball.intersects(paddle1)) {
+			ball.xVelocity = Math.abs(ball.xVelocity);
+			ball.xVelocity++; //increase ball x speed after hit
+			if (ball.yVelocity > 0) {
+				ball.yVelocity++; //increase ball y speed after hit
+			}
+			ball.setRandomXDirection(ball.xVelocity);
+			ball.setRandomYDirection(ball.yVelocity);
+		}
+		
+		if (ball.intersects(paddle2)) {
+			ball.xVelocity = Math.abs(ball.xVelocity);
+			ball.xVelocity++; //increase ball x speed after hit
+			if (ball.yVelocity > 0) {
+				ball.yVelocity++; //increase ball y speed after hit
+			}
+			ball.setRandomXDirection(-ball.xVelocity);
+			ball.setRandomYDirection(ball.yVelocity);
+		}
 		
 		//prevent paddles from leaving screen
 		if (paddle1.y <= 0) {
@@ -117,6 +132,20 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		if (paddle2.y >= GAME_HEIGHT - PADDLE_HEIGHT) {
 			paddle2.y = GAME_HEIGHT - PADDLE_HEIGHT ;
+		}
+		
+		//give player 1 point and reset play
+		if (ball.x <= 0) {
+			score.player2++;
+			newPaddle();
+			newBall();
+			//System.out.println(score.player1 + score.player2);
+		}
+		else if (ball.x >= GAME_WIDTH - BALL_DIAMETER) {
+			score.player1++;
+			newPaddle();
+			newBall();
+			//System.out.println(score.player1 + score.player2);
 		}
 	}
 	
