@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements Runnable {
 	static final int GAME_WIDTH = 1000 ;
 	static final int GAME_HEIGHT = (int) (GAME_WIDTH * (.55)) ;
 	static final Dimension SCREEN_SIZE = new Dimension (GAME_WIDTH, GAME_HEIGHT) ;
-	static final int BALL_DIAMETER = 20 ;
+	static final int BALL_DIAMETER = 30 ;
 	static final int PADDLE_WIDTH = 25 ;
 	static final int PADDLE_HEIGHT = 100 ;
 	Thread gameThread ;
@@ -93,10 +93,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public void checkCollision () {
 		//keep ball on screen
 		if (ball.y <= 0) {
-			ball.setRandomYDirection(-ball.yVelocity) ;
+			ball.setYDirection(-ball.yVelocity) ;
 		}
 		if (ball.y >= GAME_HEIGHT - BALL_DIAMETER) {
-			ball.setRandomYDirection(-ball.yVelocity) ;
+			ball.setYDirection(-ball.yVelocity) ;
 		}
 		
 		//paddle collisions
@@ -106,8 +106,8 @@ public class GamePanel extends JPanel implements Runnable {
 			if (ball.yVelocity > 0) {
 				ball.yVelocity++; //increase ball y speed after hit
 			}
-			ball.setRandomXDirection(ball.xVelocity);
-			ball.setRandomYDirection(ball.yVelocity);
+			ball.setXDirection(ball.xVelocity);
+			ball.setYDirection(ball.yVelocity);
 		}
 		
 		if (ball.intersects(paddle2)) {
@@ -116,8 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
 			if (ball.yVelocity > 0) {
 				ball.yVelocity++; //increase ball y speed after hit
 			}
-			ball.setRandomXDirection(-ball.xVelocity);
-			ball.setRandomYDirection(ball.yVelocity);
+			ball.setXDirection(-ball.xVelocity);
+			ball.setYDirection(ball.yVelocity);
 		}
 		
 		//prevent paddles from leaving screen

@@ -22,13 +22,21 @@ public class Ball extends Rectangle {
 		int randomXDirection = random.nextInt(2);
 		if (randomXDirection == 0) {
 			randomXDirection-- ;
-			setRandomXDirection(randomXDirection * initialBallSpeed);
+			setXDirection(randomXDirection * initialBallSpeed);
+		}
+		else {
+			randomXDirection++;
+			setXDirection(randomXDirection * initialBallSpeed);
 		}
 		
 		int randomYDirection = random.nextInt(2);
 		if (randomYDirection == 0) {
 			randomYDirection-- ;
-			setRandomYDirection(randomYDirection * initialBallSpeed);
+			setYDirection(randomYDirection * initialBallSpeed);
+		}
+		else {
+			randomYDirection++;
+			setYDirection(randomYDirection * initialBallSpeed);
 		}
 	}
 	
@@ -36,14 +44,14 @@ public class Ball extends Rectangle {
 	 * setXDirection setter method ball random x direction of new ball
 	 * @param random x direction
 	 */
-	public void setRandomXDirection (int randomXDirection) {
+	public void setXDirection (int randomXDirection) {
 		xVelocity = randomXDirection ;
 	}
 	/**
 	 * setYDirection setter method ball random y direction for new ball
 	 * @param random y direction 
 	 */
-	public void setRandomYDirection (int randomYDirection) {
+	public void setYDirection (int randomYDirection) {
 		yVelocity = randomYDirection ;
 	}
 	
