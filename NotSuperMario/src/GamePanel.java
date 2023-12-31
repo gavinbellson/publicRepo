@@ -45,48 +45,82 @@ public class GamePanel extends JPanel implements Runnable {
 		gameThread = new Thread (this);
 		gameThread.start();//calls the run (loop) method
 	}
+	
 	/* started by thread, our game loop 
 	 * keeps calling update and repaint
 	 * over and over. need to tell it how often (FPS),
 	 * else it will do it as many times as possible */
-	@Override
+//	@Override
+//	public void run() {
+//		//the current time = System.nanoTime()
+//		
+//		//how often we want to draw, 1 sec (in nanoseconds) divided by FPS = rate, 60 fps
+//		double drawInterval = 1000000000 / FPS ;
+//		//next time to draw
+//		double nextDrawTime = System.nanoTime() + drawInterval ;
+//		
+//		while (gameThread != null) {
+//
+//			//#1 update - info such as character position
+//			//by calling the update method we make below
+//			update();
+//			//#2 draw - draw the screen with the updated info
+//			//repaint calls paintComponent (not sure how?)
+//			repaint();
+//			
+//			System.out.println("playerX = "+ playerX + "playerY = " + playerY);
+//			
+//			try {
+//				//how long until next draw
+//				double remainingTime = nextDrawTime - System.nanoTime();
+//				//Thread.sleep uses millisec so have to convert remainingTime before calling sleep
+//				remainingTime = remainingTime / 1000000 ;
+//				/* if the update, repaint take longer than 1 loop then don't draw this loop */
+//				if (remainingTime < 0) {
+//					remainingTime = 0;
+//				}
+//				Thread.sleep((long) remainingTime) ;//sleep until time to draw
+//				nextDrawTime = nextDrawTime + drawInterval ;//next draw time
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//		
+//	}
+	
+	/**
+	 * alternative game loop logic 
+	 * 
+	 * 	
+	 */
 	public void run() {
-		//the current time = System.nanoTime()
-		
-		//how often we want to draw, 1 sec (in nanoseconds) divided by FPS = rate, 60 fps
-		double drawInterval = 1000000000 / FPS ;
-		//next time to draw
-		double nextDrawTime = System.nanoTime() + drawInterval ;
+		double drawInterval = 1000000000 / FPS;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
+		long timer = 0 ;//checking FPS
+		int drawCount = 0 ;//checking FPS
 		
 		while (gameThread != null) {
-
-			//#1 update - info such as character position
-			//by calling the update method we make below
-			update();
-			//#2 draw - draw the screen with the updated info
-			//repaint calls paintComponent (not sure how?)
-			repaint();
-			
-			System.out.println("playerX = "+ playerX + "playerY = " + playerY);
-			
-			try {
-				//how long until next draw
-				double remainingTime = nextDrawTime - System.nanoTime();
-				//Thread.sleep uses millisec so have to convert remainingTime before calling sleep
-				remainingTime = remainingTime / 1000000 ;
-				/* if the update, repaint take longer than 1 loop then don't draw this loop */
-				if (remainingTime < 0) {
-					remainingTime = 0;
-				}
-				Thread.sleep((long) remainingTime) ;//sleep until time to draw
-				nextDrawTime = nextDrawTime + drawInterval ;//next draw time
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			currentTime = System.nanoTime();
+			delta = delta + (currentTime - lastTime) / drawInterval ;
+			timer = timer + (currentTime - lastTime);//checking FPS
+			lastTime = currentTime;
+			if (delta >= 1) {
+				update();
+				repaint();
+				delta--;
+				drawCount++;//checking FPS
 			}
-			
+			/* checking FPS */
+			if (timer >= 1000000000) {
+				System.out.println("FPS = " + drawCount);
+				drawCount = 0;
+				timer = 0;
+			}
 		}
-		
 	}
 	
 	/* note in java upper left corner is x=0, y=0
