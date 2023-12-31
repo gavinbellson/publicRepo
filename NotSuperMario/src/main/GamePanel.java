@@ -2,6 +2,7 @@ package main;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,22 +19,18 @@ public class GamePanel extends JPanel implements Runnable {
 	final int scale = 3 ;
 	//48x48 actual tile size displayed
 	public final int tileSize = originalTileSize * scale ; 
-	final int maxScreenCol = 16;//how many tiles wide
-	final int maxScreenRow = 12;//how many titles tall
+	public final int maxScreenCol = 16; //how many tiles wide
+	public final int maxScreenRow = 12;    //how many titles tall
 	//768 pixels = (originalTileSize * scale) * maxScreenCol 
-	final int screenWidth = tileSize * maxScreenCol ;
+	public final int screenWidth = tileSize * maxScreenCol ;
 	//576 pixels = (16 * 3) * 12
-	final int screenHeight = tileSize * maxScreenRow ;
+	public final int screenHeight = tileSize * maxScreenRow ;
 	
 	Thread gameThread;//implements Runnable
 	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
 	Player player = new Player (this, keyH);
-	
-	/* player default position */ 
-	int playerX = 100 ;
-	int playerY = 100 ;
-	int playerSpeed = 4 ;//N of pixels 
+	TileManager tileManager = new TileManager (this);
 	
 	/* panel constructor */
 	public GamePanel() {
@@ -138,12 +135,13 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	/* paintComponent is a built in java name/method for drawing
-	 * things on the screen 
+	 * things on the screen in layers
 	 * @param Graphics a class that has many functions to draw */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;//cast g to g2 for more functions
-		player.draw(g2);
+		tileManager.draw(g2);//bottom layer
+		player.draw(g2);//not bottom layer
 		g2.dispose();//save memory after drawing
 	}
 }
