@@ -1,5 +1,8 @@
 package main;
 import javax.swing.JPanel;
+
+import entity.Player;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
 	//modern screen resolution is higher so have to scale up
 	final int scale = 3 ;
 	//48x48 actual tile size displayed
-	final int tileSize = originalTileSize * scale ; 
+	public final int tileSize = originalTileSize * scale ; 
 	final int maxScreenCol = 16;//how many tiles wide
 	final int maxScreenRow = 12;//how many titles tall
 	//768 pixels = (originalTileSize * scale) * maxScreenCol 
@@ -25,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;//implements Runnable
 	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
+	Player player = new Player (this, keyH);
 	
 	/* player default position */ 
 	int playerX = 100 ;
@@ -129,18 +133,8 @@ public class GamePanel extends JPanel implements Runnable {
 	 * and y values increase as they go down 
 	 * */
 	public void update() {
-		if (keyH.upPressed == true) {
-			playerY = playerY - playerSpeed ;
-		}
-		if (keyH.downPressed == true) {
-			playerY = playerY + playerSpeed ;
-		}
-		if (keyH.leftPressed == true) {
-			playerX = playerX - playerSpeed ;
-		}
-		if (keyH.rightPressed == true) {
-			playerX = playerX + playerSpeed ;
-		}
+		player.update();
+		
 	}
 	
 	/* paintComponent is a built in java name/method for drawing
@@ -149,8 +143,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;//cast g to g2 for more functions
-		g2.setColor(Color.white);
-		g2.fillRect(playerX, playerY, tileSize, tileSize);
+		player.draw(g2);
 		g2.dispose();//save memory after drawing
 	}
 }
