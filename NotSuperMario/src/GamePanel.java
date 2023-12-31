@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			try {
 				//how long until next draw
-				double remainingTime = nextDrawTime = System.nanoTime();
+				double remainingTime = nextDrawTime - System.nanoTime();
 				//Thread.sleep uses millisec so have to convert remainingTime before calling sleep
 				remainingTime = remainingTime / 1000000 ;
 				/* if the update, repaint take longer than 1 loop then don't draw this loop */
