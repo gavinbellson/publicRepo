@@ -13,20 +13,24 @@ import main.KeyHandler;
 public class Player extends Entity {
 
 	/* variables */
-	GamePanel gamePanel;
+	GamePanel gamePanel ;
 	KeyHandler keyH ;
+	public final int screenX ;//player's screen position will never change with world map
+	public final int screenY ; //player's screen position will never change with world map
 	
 	/* constructor */
 	public Player (GamePanel gamePanel, KeyHandler keyH) {
 		this.gamePanel = gamePanel;
 		this.keyH = keyH;
+		screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);//put player in middle of screen
+		screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);//put player in middle of screen
 		setDefaultValues ();
 		getPlayerImage();
 	}
 	/* default values */
 	public void setDefaultValues () {
-		x = 100;
-		y = 100;
+		worldX = gamePanel.tileSize * 23 ;
+		worldY = gamePanel.tileSize * 21 ;
 		speed = 4;
 		direction = "down";
 	}
@@ -53,19 +57,19 @@ public class Player extends Entity {
 				keyH.leftPressed == true || keyH.rightPressed == true ) {
 		if (keyH.upPressed == true) {
 			direction = "up";
-			y = y - speed ;
+			worldY = worldY - speed ;
 		}
 		if (keyH.downPressed == true) {
 			direction = "down";
-			y = y + speed ;
+			worldY = worldY + speed ;
 		}
 		if (keyH.leftPressed == true) {
 			direction = "left";
-			x = x - speed ;
+			worldX = worldX - speed ;
 		}
 		if (keyH.rightPressed == true) {
 			direction = "right";
-			x = x + speed ;
+			worldX = worldX + speed ;
 		}
 		
 		spriteCounter++;
@@ -120,6 +124,6 @@ public class Player extends Entity {
 			}
 			break;		
 		}
-		g2.drawImage(image,x,y,gamePanel.tileSize,gamePanel.tileSize,null);
+		g2.drawImage(image,screenX,screenY,gamePanel.tileSize,gamePanel.tileSize,null);
 	}
 }

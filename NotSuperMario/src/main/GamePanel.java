@@ -26,10 +26,16 @@ public class GamePanel extends JPanel implements Runnable {
 	//576 pixels = (16 * 3) * 12
 	public final int screenHeight = tileSize * maxScreenRow ;
 	
+	//WORLD MAP Settings 
+	public final int maxWorldCol = 50 ;//how many tiles wide
+	public final int maxWorldRow = 50 ;//how many titles tall
+	public final int worldWidth = tileSize * maxWorldCol ;
+	public final int worldHeight = tileSize * maxWorldRow ;
+	
 	Thread gameThread;//implements Runnable
 	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
-	Player player = new Player (this, keyH);
+	public Player player = new Player (this, keyH);
 	TileManager tileManager = new TileManager (this);
 	
 	/* panel constructor */
@@ -141,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;//cast g to g2 for more functions
 		tileManager.draw(g2);//bottom layer
-		player.draw(g2);//not bottom layer
+		player.draw(g2);//next up from the bottom layer
 		g2.dispose();//save memory after drawing
 	}
 }
