@@ -1,1 +1,23 @@
 Copy of 2D game from RyiSnow @youtube re-created here for learning.
+
+The organization of the game code:
+source
+main package
+	-game main method for the game and creates jframe and adds gamepanel to the frame
+	-gamepanel most of the methods logic are here
+	-keyhandler controller 
+	
+entity package
+	-entity
+	-player
+	
+tile package
+	-tilemanager
+	-tile
+
+resources
+maps package
+
+player package
+
+tiles package
