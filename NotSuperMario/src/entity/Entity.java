@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle ;
 
 public class Entity {
 
@@ -11,4 +12,6 @@ public class Entity {
 	public String direction ;
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
+	public java.awt.Rectangle solidArea ;//only portion of entity is "solid"
+	public boolean collisionOn = false;
 }

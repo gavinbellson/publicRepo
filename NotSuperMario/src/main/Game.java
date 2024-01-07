@@ -10,10 +10,9 @@ public class Game {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Jeremy copy game");
-		window.setLocationRelativeTo(null);//middle of screen
 		window.setVisible(true);
 		window.pack();
-		
+		window.setLocationRelativeTo (null) ;//middle of screen
 		gamePanel.startGameThread();
 	}
 

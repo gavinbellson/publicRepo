@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -24,6 +25,13 @@ public class Player extends Entity {
 		this.keyH = keyH;
 		screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);//put player in middle of screen
 		screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);//put player in middle of screen
+		/* define collision area of player */
+		solidArea = new Rectangle ();
+		/* for readability defined Rectangle vars below*/
+		solidArea.x = gamePanel.tileSize * 1/6 ;
+		solidArea.y = gamePanel.tileSize * 1/3;
+		solidArea.height = gamePanel.tileSize * 2/3;
+		solidArea.width = gamePanel.tileSize * 2/3;
 		setDefaultValues ();
 		getPlayerImage();
 	}
@@ -51,27 +59,40 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 	}
-	/* player update method */
+	/* player update method - update location and collision checks */
 	public void update() {
 		if (keyH.upPressed == true || keyH.downPressed == true ||
 				keyH.leftPressed == true || keyH.rightPressed == true ) {
 		if (keyH.upPressed == true) {
 			direction = "up";
-			worldY = worldY - speed ;
+			
 		}
 		if (keyH.downPressed == true) {
 			direction = "down";
-			worldY = worldY + speed ;
+			
 		}
 		if (keyH.leftPressed == true) {
 			direction = "left";
-			worldX = worldX - speed ;
+			
 		}
 		if (keyH.rightPressed == true) {
 			direction = "right";
-			worldX = worldX + speed ;
+			
 		}
 		
+		//check tile collision
+		collisionOn = false;
+		gamePanel.collisionChecker.checkTile(this);
+		
+		//if collision = false, only then can proceed with the move
+		if (collisionOn == false) {
+			switch (direction) {
+			case "up": worldY = worldY - speed ; break;
+			case "down": worldY = worldY + speed ; break;
+			case "left": worldX = worldX - speed ; break;
+			case "right": worldX = worldX + speed ; break;
+			}
+		}
 		spriteCounter++;
 		if (spriteCounter > 12) {
 			if (spriteNum == 1) {

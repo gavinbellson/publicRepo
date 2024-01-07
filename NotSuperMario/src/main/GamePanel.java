@@ -32,11 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int worldWidth = tileSize * maxWorldCol ;
 	public final int worldHeight = tileSize * maxWorldRow ;
 	
+	public CollisionChecker collisionChecker = new CollisionChecker (this);
 	Thread gameThread;//implements Runnable
 	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
 	public Player player = new Player (this, keyH);
-	TileManager tileManager = new TileManager (this);
+	public TileManager tileManager = new TileManager (this);
 	
 	/* panel constructor */
 	public GamePanel() {
