@@ -2,6 +2,7 @@ package main;
 import javax.swing.JPanel;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import java.awt.Color;
@@ -36,8 +37,10 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;//implements Runnable
 	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
+	public ObjectSetter objectSetter = new ObjectSetter(this);
 	public Player player = new Player (this, keyH);
 	public TileManager tileManager = new TileManager (this);
+	public SuperObject obj[] = new SuperObject [10];//display 10 objs at a time
 	
 	/* panel constructor */
 	public GamePanel() {
@@ -48,6 +51,14 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setFocusable(true);
 	}
 
+	/* 
+	 * set up objects and such in game.  make sure in Game this
+	 * is called BEFORE startGameThread
+	 */
+	public void setUpGame () {
+		objectSetter.setObject();
+	}
+	
 	/* create instance of thread and give to panel.
 	 * startGameThread needs to be called in jframe */
 	public void startGameThread () {
@@ -147,7 +158,15 @@ public class GamePanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;//cast g to g2 for more functions
+		//draw tiles
 		tileManager.draw(g2);//bottom layer
+		//draw objects
+		for (int i = 0; i < obj.length; i++) {
+			if (obj[i] != null  ) {
+				obj[i].draw(g2, this);
+			}
+		}
+		//draw player
 		player.draw(g2);//next up from the bottom layer
 		g2.dispose();//save memory after drawing
 	}

@@ -13,6 +13,7 @@ public class Game {
 		window.setVisible(true);
 		window.pack();
 		window.setLocationRelativeTo (null) ;//middle of screen
+		gamePanel.setUpGame();//call BEFORE startGameThread
 		gamePanel.startGameThread();
 	}
 

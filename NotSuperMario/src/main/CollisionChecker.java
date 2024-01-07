@@ -12,7 +12,9 @@ public class CollisionChecker {
 		
 	}
 
-	/* check collisions of any entities including players */
+	/* check collisions of any entities including players. instead of
+	 * left corner of player's rectangle, it is calculated to collide when
+	 * the left "shoulder"  would hit. */
 	public void checkTile (Entity entity) {
 		int entityLeftWorldX = entity.worldX + entity.solidArea.x ;
 		int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
