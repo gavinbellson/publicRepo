@@ -32,16 +32,22 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int maxWorldRow = 50 ;//how many titles tall
 	public final int worldWidth = tileSize * maxWorldCol ;
 	public final int worldHeight = tileSize * maxWorldRow ;
-	
-	public CollisionChecker collisionChecker = new CollisionChecker (this);
-	Thread gameThread;//implements Runnable
-	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
 	final int FPS = 60 ;//frames per second,game loop rate
-	public ObjectSetter objectSetter = new ObjectSetter(this);
-	public Player player = new Player (this, keyH);
-	public TileManager tileManager = new TileManager (this);
-	public SuperObject obj[] = new SuperObject [10];//display 10 objs at a time
+
 	
+	//system stuff
+	public Sound sound = new Sound() ;//sound
+	KeyHandler keyH = new KeyHandler();//named instance of keyhandler
+	public TileManager tileManager = new TileManager (this);
+	public CollisionChecker collisionChecker = new CollisionChecker (this);
+	public ObjectSetter objectSetter = new ObjectSetter(this);
+	Thread gameThread;//implements Runnable
+	
+	//player and objects
+	public SuperObject obj[] = new SuperObject [10];//display 10 objs at a time
+	public Player player = new Player (this, keyH);
+		
+		
 	/* panel constructor */
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -53,10 +59,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 	/* 
 	 * set up objects and such in game.  make sure in Game this
-	 * is called BEFORE startGameThread
+	 * is called BEFORE startGameThread.
+	 * also starts the music
 	 */
 	public void setUpGame () {
 		objectSetter.setObject();
+		playMusic(0);
 	}
 	
 	/* create instance of thread and give to panel.
@@ -169,5 +177,23 @@ public class GamePanel extends JPanel implements Runnable {
 		//draw player
 		player.draw(g2);//next up from the bottom layer
 		g2.dispose();//save memory after drawing
+	}
+	
+	/* playMusic */
+	public void playMusic (int i) {
+		sound.setFile(i);
+		sound.playSound();
+		sound.loop();//music should loop vs 1x for soundEffect
+	}
+
+	/* stopMusic */
+	public void stopMusic (int i) {
+		sound.stopSound();
+	}
+
+	/* playSoundEffect */
+	public void playSoundEffect (int i) {
+		sound.setFile(i);
+		sound.playSound();
 	}
 }

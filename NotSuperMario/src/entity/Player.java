@@ -117,15 +117,25 @@ public class Player extends Entity {
 	public void pickUpObject (int objectIndex ) {
 		if (objectIndex != 999) {
 			String objectName = gamePanel.obj[objectIndex].objectsName;
+			/* key interaction */
 			if (objectName == "key") {
+				gamePanel.playSoundEffect(1);
 				numOfKeysInInventory++;
 				gamePanel.obj[objectIndex] = null ;//delete obj from game
 			}
+			/* door */
 			if (objectName == "door") {
 				if (numOfKeysInInventory > 0) {
+					gamePanel.playSoundEffect(3);
 					numOfKeysInInventory--;
 					gamePanel.obj[objectIndex] = null ;//delete obj from game
 				}
+			}
+			/* boots interaction */
+			if (objectName == "boots") {
+				gamePanel.playSoundEffect(2);
+				this.speed = this.speed + 2 ;
+				gamePanel.obj[objectIndex] = null ;//delete obj from game
 			}
 			
 		}

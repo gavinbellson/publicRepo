@@ -1,5 +1,6 @@
 package main;
 
+import object.objectBoots;
 import object.objectChest;
 import object.objectDoor;
 import object.objectKey;
@@ -43,5 +44,10 @@ public class ObjectSetter {
 		gamePanel.obj[6] = new objectChest();
 		gamePanel.obj[6].worldX = 10 * gamePanel.tileSize ;//x tiles over
 		gamePanel.obj[6].worldY = 7 * gamePanel.tileSize ;//y tiles down
+		
+		gamePanel.obj[7] = new objectBoots();
+		gamePanel.obj[7].worldX = 37 * gamePanel.tileSize ;//x tiles over
+		gamePanel.obj[7].worldY = 42 * gamePanel.tileSize ;//y tiles down
+
 	}
 }
