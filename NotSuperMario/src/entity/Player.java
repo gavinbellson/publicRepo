@@ -18,6 +18,7 @@ public class Player extends Entity {
 	KeyHandler keyH ;
 	public final int screenX ;//player's screen position will never change with world map
 	public final int screenY ; //player's screen position will never change with world map
+	int numOfKeysInInventory = 0 ;//how many keys player has
 	
 	/* constructor */
 	public Player (GamePanel gamePanel, KeyHandler keyH) {
@@ -32,6 +33,8 @@ public class Player extends Entity {
 		solidArea.y = gamePanel.tileSize * 1/3;
 		solidArea.height = gamePanel.tileSize * 2/3;
 		solidArea.width = gamePanel.tileSize * 2/3;
+		solidAreaDefaultX = solidArea.x ;
+		solidAreaDefaultY = solidArea.y ;
 		setDefaultValues ();
 		getPlayerImage();
 	}
@@ -84,6 +87,10 @@ public class Player extends Entity {
 		collisionOn = false;
 		gamePanel.collisionChecker.checkTile(this);
 		
+		//check object collision
+		int objectIndex = gamePanel.collisionChecker.checkObject(this, true);
+		pickUpObject(objectIndex);
+		
 		//if collision = false, only then can proceed with the move
 		if (collisionOn == false) {
 			switch (direction) {
@@ -106,6 +113,23 @@ public class Player extends Entity {
 		}
 	}
 	
+	/* pickUp objects or interact */
+	public void pickUpObject (int objectIndex ) {
+		if (objectIndex != 999) {
+			String objectName = gamePanel.obj[objectIndex].objectsName;
+			if (objectName == "key") {
+				numOfKeysInInventory++;
+				gamePanel.obj[objectIndex] = null ;//delete obj from game
+			}
+			if (objectName == "door") {
+				if (numOfKeysInInventory > 0) {
+					numOfKeysInInventory--;
+					gamePanel.obj[objectIndex] = null ;//delete obj from game
+				}
+			}
+			
+		}
+	}
 	/* draw method */
 	public void draw (Graphics2D g2) {
 //		g2.setColor(Color.white);

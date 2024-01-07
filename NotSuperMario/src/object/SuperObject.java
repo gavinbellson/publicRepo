@@ -3,15 +3,18 @@ package object;
 import main.GamePanel;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public class SuperObject {
 
 	/* variables */
 	public BufferedImage objectsImage;
 	public String objectsName;
-	public boolean collision = false ;//defaults to false
+	public boolean collision = false ;//defaults to false, change inside specific object classes
 	public int worldX ;
 	public int worldY ;
+	public Rectangle solidArea = new Rectangle (0,0,48,48);
+	public int solidAreaDefaultX = 0, solidAreaDefaultY = 0;
 	
 	/*
 	 * draw
