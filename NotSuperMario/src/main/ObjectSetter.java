@@ -31,7 +31,7 @@ public class ObjectSetter {
 		
 		gamePanel.obj[3] = new objectDoor();
 		gamePanel.obj[3].worldX = 10 * gamePanel.tileSize ;//x tiles over
-		gamePanel.obj[3].worldY = 9 * gamePanel.tileSize ;//y tiles down
+		gamePanel.obj[3].worldY = 11 * gamePanel.tileSize ;//y tiles down
 		
 		gamePanel.obj[4] = new objectDoor();
 		gamePanel.obj[4].worldX = 8 * gamePanel.tileSize ;//x tiles over
@@ -43,7 +43,7 @@ public class ObjectSetter {
 		
 		gamePanel.obj[6] = new objectChest();
 		gamePanel.obj[6].worldX = 10 * gamePanel.tileSize ;//x tiles over
-		gamePanel.obj[6].worldY = 7 * gamePanel.tileSize ;//y tiles down
+		gamePanel.obj[6].worldY = 8 * gamePanel.tileSize ;//y tiles down
 		
 		gamePanel.obj[7] = new objectBoots();
 		gamePanel.obj[7].worldX = 37 * gamePanel.tileSize ;//x tiles over

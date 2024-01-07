@@ -18,7 +18,7 @@ public class Player extends Entity {
 	KeyHandler keyH ;
 	public final int screenX ;//player's screen position will never change with world map
 	public final int screenY ; //player's screen position will never change with world map
-	int numOfKeysInInventory = 0 ;//how many keys player has
+	public int numOfKeysInInventory = 0 ;//how many keys player has
 	
 	/* constructor */
 	public Player (GamePanel gamePanel, KeyHandler keyH) {
@@ -121,6 +121,7 @@ public class Player extends Entity {
 			if (objectName == "key") {
 				gamePanel.playSoundEffect(1);
 				numOfKeysInInventory++;
+				gamePanel.ui.showMessage("you found a key!");
 				gamePanel.obj[objectIndex] = null ;//delete obj from game
 			}
 			/* door */
@@ -128,16 +129,28 @@ public class Player extends Entity {
 				if (numOfKeysInInventory > 0) {
 					gamePanel.playSoundEffect(3);
 					numOfKeysInInventory--;
+					gamePanel.ui.showMessage("you have unlocked the door!");
 					gamePanel.obj[objectIndex] = null ;//delete obj from game
+				} else {
+					gamePanel.ui.showMessage("you must find a key.");
 				}
 			}
 			/* boots interaction */
 			if (objectName == "boots") {
 				gamePanel.playSoundEffect(2);
 				this.speed = this.speed + 2 ;
+				gamePanel.ui.showMessage("you found fast boots!");
 				gamePanel.obj[objectIndex] = null ;//delete obj from game
 			}
-			
+			/* chest interaction */
+			if (objectName == "chest") {
+				gamePanel.playSoundEffect(2);
+				this.speed = this.speed + 2 ;
+				gamePanel.ui.showMessage("the treasure is YOURS!");
+				gamePanel.ui.gameFinished = true ;//you won!
+				gamePanel.music.stopSound();//stop background music
+				gamePanel.playSoundEffect(4);//fanfare
+			}
 		}
 	}
 	/* draw method */

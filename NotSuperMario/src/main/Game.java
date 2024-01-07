@@ -9,7 +9,7 @@ public class Game {
 		window.add(gamePanel);//add gamepanel to frame
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("Jeremy copy game");
+		window.setTitle("Jeremy 2D Treasure Hunt game copy");
 		window.setVisible(true);
 		window.pack();
 		window.setLocationRelativeTo (null) ;//middle of screen
