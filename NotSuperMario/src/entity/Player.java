@@ -93,12 +93,19 @@ public class Player extends Entity {
 		
 		//if collision = false, only then can proceed with the move
 		if (collisionOn == false) {
-			switch (direction) {
-			case "up": worldY = worldY - speed ; break;
-			case "down": worldY = worldY + speed ; break;
-			case "left": worldX = worldX - speed ; break;
-			case "right": worldX = worldX + speed ; break;
+			if (direction == "up") {
+				worldY = worldY - speed ;
 			}
+			if (direction == "down") {
+				worldY = worldY + speed ;
+			}
+			if (direction == "left") { 
+				worldX = worldX - speed ; 
+			}
+			if (direction == "right") {
+				worldX = worldX + speed ; 
+			}
+			
 		}
 		spriteCounter++;
 		if (spriteCounter > 12) {

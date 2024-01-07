@@ -19,6 +19,7 @@ public class UI {
 	int messageTimer = 0;
 	int messageTimerFrames = 120;//120FRAMES = 2 sec
 	public boolean gameFinished = false ;//game over man
+	double gameClock;
 	
 	/* constructor */
 	public UI(GamePanel gamePanelIn) {
@@ -51,6 +52,12 @@ public class UI {
 			int y = (gamePanel.screenHeight / 2) - (gamePanel.tileSize * 3) ;
 			g2.drawString(text, x, y);
 			
+			text = "your time :" + (int)gameClock;
+			textLength = (int) g2.getFontMetrics().getStringBounds(text,g2).getWidth() ;
+			x = (gamePanel.screenWidth / 2) - (textLength / 2);
+			y = (gamePanel.screenHeight / 2) + (gamePanel.tileSize * 3) ;
+			g2.drawString(text, x, y);
+			
 			g2.setFont(ARIAL_80_BOLD);
 			g2.setColor(Color.yellow);
 			text = "Congratuations!";
@@ -69,6 +76,10 @@ public class UI {
 			//g2.drawString("key = " + gamePanel.player.numOfKeysInInventory, 25, 50);
 			g2.drawString("x  " + gamePanel.player.numOfKeysInInventory, 74, 60);
 		
+			//gameClock
+			gameClock = gameClock + (double)1/60;
+			g2.drawString("Time: " + (int)gameClock, gamePanel.tileSize*11, 60);
+			
 			//messages
 			if (messageOn) {
 			g2.setFont(g2.getFont().deriveFont(30F));
